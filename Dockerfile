@@ -28,7 +28,8 @@ RUN go get gopkg.in/mgo.v2/bson \
   gopkg.in/mgo.v2
 
 # Copy Golang source code
-COPY API ~/
+RUN mkdir /root/API
+COPY API /root/API/
 
 # build API
-go build ~/main.go
+RUN go build /root/API/main.go
