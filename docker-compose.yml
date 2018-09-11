@@ -2,16 +2,38 @@ version: '3'
 services:
   api:
     build: .
+    container_name: api
     ports:
       - "8080:8080"
     command: ["/app/main"]
-  mongodb:
-    image: 'bitnami/mongodb:3.6'
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.3
+    depends_on:
+      - mongo
+
+  mongo:
+    image: 'mongo:latest'
+    container_name: mongo
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=testDB
     volumes:
-      - 'mongodb_data:/bitnami'
+      - 'mongodb_data:/data/db'
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
 
 volumes:
   mongodb_data:
     driver: local
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16

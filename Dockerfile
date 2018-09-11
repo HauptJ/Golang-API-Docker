@@ -3,7 +3,7 @@
 # Based on golang latest
 ############################################################
 
-# Set the base image to Fedora 28
+# Set the base image to Golang Latest
 FROM golang:latest
 
 # File Author / Maintainer
