@@ -20,12 +20,21 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=testDB
+      - MONGO_INITDB_DATABASE=admin
     volumes:
       - 'mongodb_data:/data/db'
     networks:
       vpcbr:
         ipv4_address: 10.5.0.2
+
+  mongo-seed:
+    build: ./mongo-seed
+    container_name: mongo-seed
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.4
+    depends_on:
+      - mongo
 
 volumes:
   mongodb_data:

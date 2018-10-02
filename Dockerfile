@@ -7,7 +7,7 @@
 FROM golang:latest
 
 # File Author / Maintainer
-MAINTAINER josh@hauptj.com
+MAINTAINER joshua@hauptj.com
 
 
 ################## Environment Variables ###################
@@ -18,7 +18,11 @@ MAINTAINER josh@hauptj.com
 # Install Go Dependencies
 RUN go get gopkg.in/mgo.v2/bson \
   github.com/gorilla/context \
-  gopkg.in/mgo.v2
+  gopkg.in/mgo.v2 \
+  github.com/dgrijalva/jwt-go \
+  github.com/gorilla/mux \
+  github.com/BurntSushi/toml
+
 
 # Copy Golang source code
 RUN mkdir /app
